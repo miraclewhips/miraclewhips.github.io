@@ -40,8 +40,16 @@ a {
 .title {
 	text-align: center;
 	font-family: inherit;
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 	margin: 1em 0 2em 0;
+}
+
+.discord {
+	font-size: 1.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
 }
 
 hr {
