@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5 {
 }
 
 a {
-	color: #000;
+	color: inherit;
 	font-weight: 500;
 }
 
@@ -50,6 +50,12 @@ a {
 	align-items: center;
 	justify-content: center;
 	gap: 5px;
+}
+
+.red-box {
+	color: #fff;
+	background-color: #a01515;
+	padding: 1rem;
 }
 
 hr {
