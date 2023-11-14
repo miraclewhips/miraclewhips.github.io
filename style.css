@@ -52,9 +52,26 @@ a {
 	gap: 5px;
 }
 
-.red-box {
+.donate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.donate-button {
+	padding: 5px 20px;
+	border-radius: 10px;
+	font-size: 1.8rem;
+	border-radius: 999px;
+	text-decoration: none;
+	background: #6cb928;
 	color: #fff;
-	background-color: #a01515;
+}
+
+.banner {
+	color: #000;
+	background-color: #e8e8e8;
 	padding: 1rem;
 }
 
