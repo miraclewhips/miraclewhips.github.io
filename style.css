@@ -124,3 +124,8 @@ hr {
 .button:active:before {
 	transform: none;
 }
+
+.script-link {
+	width: 18px;
+	cursor: pointer;
+}
