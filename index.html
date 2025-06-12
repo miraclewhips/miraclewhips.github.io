@@ -244,6 +244,12 @@
 				toggle.classList.remove('is-playing');
 			}
 		});
+
+		// cache-break download urls
+		const now = Date.now();
+		for(const link of document.querySelectorAll('a[href*=".user.js"]')) {
+			link.href += `?v=${now}`;
+		}
 	</script>
 </body>
 </html>
