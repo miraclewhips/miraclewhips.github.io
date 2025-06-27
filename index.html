@@ -228,27 +228,8 @@
 		</div>
 	</div>
 
+	<canvas id="background"></canvas>
 	<audio src="music/song.mp3" id="music" loop></audio>
-
-	<script>
-		const song = document.getElementById('music');
-		const toggle = document.getElementById('toggle-music');
-
-		toggle.addEventListener('click', () => {
-			if(song.paused) {
-				song.play();
-				toggle.classList.add('is-playing');
-			}else{
-				song.pause();
-				toggle.classList.remove('is-playing');
-			}
-		});
-
-		// cache-break download urls
-		const now = Date.now();
-		for(const link of document.querySelectorAll('a[href*=".user.js"]')) {
-			link.href += `?v=${now}`;
-		}
-	</script>
+	<script src="main.js"></script>
 </body>
 </html>
