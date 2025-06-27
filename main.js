@@ -73,7 +73,7 @@ void main() {
 
 	d += -(p11 - 0.5) * 2.0 + (p10 + p01 + p21 + p12 - 2.0);
 	d *= 0.99;
-	d *= float(time >= 0.5);
+	d *= float(time >= 1.0);
 	d = d * 0.5 + 0.5;
 
 	gl_FragColor = vec4(d, c.x, 0, 0);
