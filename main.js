@@ -32,6 +32,7 @@ var adj_res_dy = 0;
 var mouse_x = 0;
 var mouse_y = 0;
 var mouse_strength = 0;
+var frame_count = 0;
 
 const vertSource = `
 precision mediump float;
@@ -45,6 +46,7 @@ const propagationFragSource = `
 precision mediump float;
 uniform vec2 resolution;
 uniform float time;
+uniform float frames;
 uniform vec2 mouse;
 uniform float strength;
 uniform sampler2D inputTexture;
@@ -61,9 +63,10 @@ void main() {
 	float p12 = texture2D(inputTexture, q + e.zy).x;
 
 	float d = 0.0;
+	float len = length(mouse.xy - gl_FragCoord.xy);
 
-	if(strength > 0.0) {
-		d = smoothstep(50.0, 2.0, length(mouse.xy - gl_FragCoord.xy)) * 0.25;
+	if(strength > 0.0 && len <= 50.0) {
+		d = smoothstep(50.0, 2.0, len) * 0.25;
 	}else{
 		float t = time * 5.0;
 		vec2 pos = fract(floor(t) * vec2(0.456665, 0.708618)) * resolution.xy;
@@ -73,7 +76,7 @@ void main() {
 
 	d += -(p11 - 0.5) * 2.0 + (p10 + p01 + p21 + p12 - 2.0);
 	d *= 0.99;
-	d *= float(time >= 1.0);
+	d *= float(frames > 10.0);
 	d = d * 0.5 + 0.5;
 
 	gl_FragColor = vec4(d, c.x, 0, 0);
@@ -132,6 +135,7 @@ function render(gl) {
 	const propagationAttribPosition       = gl.getAttribLocation(programPropagation, 'position');
 	const propagationUniformResolution    = gl.getUniformLocation(programPropagation, 'resolution');
 	const propagationUniformTime          = gl.getUniformLocation(programPropagation, 'time');
+	const propagationUniformFrameCount          = gl.getUniformLocation(programPropagation, 'frames');
 	const propagationUniformMouse         = gl.getUniformLocation(programPropagation, 'mouse');
 	const propagationUniformStrength      = gl.getUniformLocation(programPropagation, 'strength');
 	const propagationUniformInputTexture  = gl.getUniformLocation(programPropagation, 'inputTexture');
@@ -158,6 +162,7 @@ function render(gl) {
 
 		gl.uniform2f(propagationUniformResolution, gl.canvas.width, gl.canvas.height);
 		gl.uniform1f(propagationUniformTime, time);
+		gl.uniform1f(propagationUniformFrameCount, frame_count);
 		gl.uniform2f(propagationUniformMouse, mouse_x, gl.canvas.height - mouse_y);
 		gl.uniform1f(propagationUniformStrength, mouse_strength);
 
@@ -207,6 +212,7 @@ function render(gl) {
 	}
 
 	function render_frame() {
+		frame_count++;
 		time = performance.now();
 		const t = time / 1000;
 		lastTime = time;
@@ -315,6 +321,7 @@ function resizeCanvas() {
 
 	genPropgationTexture(gl, texturePropagation1, texBuffer1);
 	genPropgationTexture(gl, texturePropagation2, texBuffer2);
+	frame_count = 0;
 }
 
 function mouseMove(e) {
