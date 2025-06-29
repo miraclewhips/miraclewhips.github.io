@@ -1,3 +1,4 @@
+// song logic
 const song = document.getElementById('music');
 const toggle = document.getElementById('toggle-music');
 
@@ -10,12 +11,6 @@ toggle.addEventListener('click', () => {
 		toggle.classList.remove('is-playing');
 	}
 });
-
-// cache-break download urls
-const now = Date.now();
-for(const link of document.querySelectorAll('a[href*=".user.js"]')) {
-	link.href += `?v=${now}`;
-}
 
 // background canvas
 const bg_aspect = 1200 / 1920;
